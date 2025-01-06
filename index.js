@@ -80,7 +80,7 @@ const addDepartment = async () => {
 // View all roles
 const viewRoles = async () => {
   try {
-    const res = await pool.query('SELECT * FROM role');
+    const res = await pool.query("SELECT role.id, role.title, role.salary, department.name FROM role LEFT JOIN department ON role.department_id = department.id");
     console.table(res.rows);
   } catch (err) {
     console.error(err);
@@ -124,7 +124,7 @@ const addRole = async () => {
 // View all employees
 const viewEmployees = async () => {
   try {
-    const res = await pool.query('SELECT * FROM employee');
+    const res = await pool.query("SELECT employee.id, employee.first_name, employee.last_name, role.title, employee.manager_id FROM employee LEFT JOIN role ON employee.role_id = role.id");
     console.table(res.rows);
   } catch (err) {
     console.error(err);
